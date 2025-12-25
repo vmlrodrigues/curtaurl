@@ -47,7 +47,7 @@ pub fn is_api_ok(http: HttpRequest, config: &Config) -> JSONResponse {
             JSONResponse {
                 success: false,
                 error: true,
-                reason: "An API key was provided, but the 'api_key' environment variable is not configured in the Chhoto URL instance".to_string(), 
+                reason: "An API key was provided, but the 'api_key' environment variable is not configured in the CurtaURL instance".to_string(),
             }
         } else {
             JSONResponse {
@@ -73,7 +73,7 @@ pub fn is_key_valid(key: &str, config: &Config) -> bool {
             api_key == key
         };
         if !authorized {
-            warn!("Incorrect API key was provided when connecting to Chhoto URL.");
+            warn!("Incorrect API key was provided when connecting to CurtaURL.");
             false
         } else {
             debug!("Server accessed with API key.");
@@ -113,7 +113,7 @@ pub fn is_session_valid(session: Session, config: &Config) -> bool {
         return true;
     }
 
-    if let Ok(token) = session.get::<String>("chhoto-url-auth") {
+    if let Ok(token) = session.get::<String>("curta-url-auth") {
         is_token_valid(token.as_deref())
     } else {
         false
@@ -133,7 +133,7 @@ fn is_token_valid(token: Option<&str>) -> bool {
                 .duration_since(SystemTime::UNIX_EPOCH)
                 .expect("Time went backwards!")
                 .as_secs();
-            token_text == "chhoto-url-auth" && time_now < token_time + 1209600 // There are 1209600 seconds in 14 days
+            token_text == "curta-url-auth" && time_now < token_time + 1209600 // There are 1209600 seconds in 14 days
         }
     } else {
         false
@@ -142,7 +142,7 @@ fn is_token_valid(token: Option<&str>) -> bool {
 
 // Generate a new cryptographic token
 pub fn gen_token() -> String {
-    let token_text = String::from("chhoto-url-auth");
+    let token_text = String::from("curta-url-auth");
     let time = SystemTime::now()
         .duration_since(SystemTime::UNIX_EPOCH)
         .expect("Time went backwards!")

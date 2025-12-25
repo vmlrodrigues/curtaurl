@@ -38,7 +38,7 @@ async fn main() -> Result<()> {
             std::env::var("RUST_LOG")
                 .ok()
                 .filter(|s| !s.is_empty())
-                .unwrap_or("warn,chhoto_url=info,actix_session::middleware=error".to_string())
+                .unwrap_or("warn,curta_url=info,actix_session::middleware=error".to_string())
                 .as_str(),
         )
         .format(|buf, record| {
@@ -64,8 +64,8 @@ async fn main() -> Result<()> {
     let secret_key = Key::generate();
 
     eprintln!("----------------------------------------------------------------------");
-    info!("Starting Chhoto URL Server v{}", env!("CARGO_PKG_VERSION"));
-    info!("Source: https://github.com/SinTan1729/chhoto-url");
+    info!("Starting CurtaURL Server v{}", env!("CARGO_PKG_VERSION"));
+    info!("Source: https://github.com/vmlrodrigues/curtaurl");
     eprintln!("----------------------------------------------------------------------");
 
     // Read config from env vars

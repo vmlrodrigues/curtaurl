@@ -13,11 +13,11 @@ build:
 	cargo build --release --locked --manifest-path=actix/Cargo.toml --target x86_64-unknown-linux-musl
 
 podman-build: build
-	podman build --tag chhoto-url --build-arg TARGETARCH=amd64 -f Dockerfile.alpine .
+	podman build --tag curtaurl --build-arg TARGETARCH=amd64 -f Dockerfile.alpine .
 
 podman-stop:
-	podman ps -q --filter "name=chhoto-url" | xargs -r podman stop
-	podman ps -aq --filter "name=chhoto-url" | xargs -r podman rm
+	podman ps -q --filter "name=curtaurl" | xargs -r podman stop
+	podman ps -aq --filter "name=curtaurl" | xargs -r podman rm
 
 test: audit
 	cargo test --release --locked --manifest-path=actix/Cargo.toml --target x86_64-unknown-linux-musl
@@ -26,8 +26,8 @@ audit:
 	cargo audit --file actix/Cargo.lock
 
 podman-test: test podman-build podman-stop
-	podman run -t -p ${port}:${port} --name chhoto-url --env-file ./.env -v "${db_dir}:/data" -d chhoto-url
-	podman logs chhoto-url -f 
+	podman run -t -p ${port}:${port} --name curtaurl --env-file ./.env -v "${db_dir}:/data" -d curtaurl
+	podman logs curtaurl -f 
 
 conf_tag := $(shell cat actix/Cargo.toml | sed -rn 's/^version = "(.+)"$$/\1/p')
 last_tag := $(shell git tag -l | tail -1)
@@ -47,4 +47,3 @@ endif
 
 clean: podman-stop
 	cargo clean --manifest-path=actix/Cargo.toml
-

@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: chhoto-url
+  name: curtaurl
   annotations:
     cert-manager.io/issuer: "letsencrypt"
     acme.cert-manager.io/http01-edit-in-place: "true"
@@ -18,6 +18,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: chhoto-url
+            name: curtaurl
             port:
               number: 80

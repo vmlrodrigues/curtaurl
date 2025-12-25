@@ -1,9 +1,9 @@
-# Default values for chhoto-url.
+# Default values for curtaurl.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 image:
-  repository: sintan1729/chhoto-url
+  repository: ghcr.io/vmlrodrigues/curtaurl
   pullPolicy: IfNotPresent
   tag: "latest"
 
@@ -15,7 +15,7 @@ password: cGFzc3dvcmQ=
 
 persistence:
   hostPath:
-    path: /mnt/data/chhoto-data
+    path: /mnt/data/curtaurl-data
 
 redirect_method: PERMANENT
 slug_style: Pair

@@ -1,19 +1,19 @@
-## Official CLI App
+## CLI App
 
-There's an official CLI app for Linux. It's maintained by me, even though I cannot promise to provide proper support. Take a look at it
-[here](https://github.com/SinTan1729/chhoto-url-cli). The instructions below describe how to use all the features using `curl`.
+There's a CLI app for Linux maintained by the original author of CurtaURL, and it should be compatible with CurtaURL's API.
+Take a look at it [here](https://github.com/SinTan1729/chhoto-url-cli). The instructions below describe how to use all the features using `curl`.
 
 ## Instructions for CLI usage
 
 The application can be used from the terminal using something like `curl`. In all the examples
-below, replace `http://localhost:4567` with where your instance of `chhoto-url` is accessible.
+below, replace `http://localhost:4567` with where your instance of `CurtaURL` is accessible.
 
-You can get the version of `chhoto-url` the server is running using `curl http://localhost:4567/api/version` and
+You can get the version of `CurtaURL` the server is running using `curl http://localhost:4567/api/version` and
 get the siteurl using `curl http://localhost:4567/api/siteurl`. These routes are accessible without any authentication.
 
 ### API key validation
 
-**This is required for programs that rely on a JSON response from Chhoto URL**
+**This is required for programs that rely on a JSON response from CurtaURL**
 
 In order to use API key validation, set the `api_key` environment variable. If this is not set, the API will default to cookie
 validation (see section above). If the API key is insecure, a warning will be outputted along with a generated API key which may be used.

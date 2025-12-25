@@ -1,14 +1,12 @@
 <!-- SPDX-FileCopyrightText: 2023 Sayantan Santra <sayantan.santra689@gmail.com> -->
 <!-- SPDX-License-Identifier: MIT -->
 
-[![github-tests-badge](https://github.com/SinTan1729/chhoto-url/actions/workflows/rust-tests.yml/badge.svg)](https://github.com/SinTan1729/chhoto-url/actions/workflows/rust-tests.yml)
-[![docker-pulls-badge](https://img.shields.io/docker/pulls/sintan1729/chhoto-url)](https://hub.docker.com/r/sintan1729/chhoto-url)
-[![maintainer-badge](https://img.shields.io/badge/maintainer-SinTan1729-blue)](https://github.com/SinTan1729)
-[![latest-release-badge](https://img.shields.io/github/v/release/SinTan1729/chhoto-url?label=latest%20release)](https://github.com/SinTan1729/chhoto-url/releases/latest)
-[![docker-image-size-badge](https://img.shields.io/docker/image-size/sintan1729/chhoto-url)](https://hub.docker.com/r/sintan1729/chhoto-url/tags)
-[![license-badge](https://img.shields.io/github/license/SinTan1729/chhoto-url)](https://spdx.org/licenses/MIT.html)
+[![github-tests-badge](https://github.com/vmlrodrigues/curtaurl/actions/workflows/rust-tests.yml/badge.svg)](https://github.com/vmlrodrigues/curtaurl/actions/workflows/rust-tests.yml)
+[![maintainer-badge](https://img.shields.io/badge/maintainer-vmlrodrigues-blue)](https://github.com/vmlrodrigues)
+[![latest-release-badge](https://img.shields.io/github/v/release/vmlrodrigues/curtaurl?label=latest%20release)](https://github.com/vmlrodrigues/curtaurl/releases/latest)
+[![license-badge](https://img.shields.io/github/license/vmlrodrigues/curtaurl)](https://spdx.org/licenses/MIT.html)
 
-# ![Logo](resources/assets/favicon-32.png) <span style="font-size:42px">Chhoto URL</span>
+# ![Logo](resources/assets/favicon-32.png) <span style="font-size:42px">CurtaURL</span>
 
 # What is it?
 
@@ -35,18 +33,16 @@ thought were essential (e.g. hit counting).
 
 ## What does the name mean?
 
-Chhoto (ছোট, [pronunciation](https://en.wiktionary.org/wiki/ছোট)) is the Bangla word
-for small. URL means, well... URL. So the name simply means Small URL.
+Curta is Portuguese for short. URL means, well... URL. So the name simply means Short URL.
 
 # Demo
 
-Link: [https://chhoto-url-demo.sayantansantra.com](https://chhoto-url-demo.sayantansantra.com)  
-Password: `chhoto-url-demo-pass`
+Link: [https://shrtn.fyi](https://shrtn.fyi)
 
 #### Note:
 
 - The database is cleared every 15 minutes, so don't use it for anything other than testing.
-- If you host a public instance of Chhoto URL, please let me know, and I'll add it to the README.
+- If you host a public instance of CurtaURL, please let me know, and I'll add it to the README.
 
 # Features
 
@@ -115,6 +111,7 @@ Password: `chhoto-url-demo-pass`
 
 # Notes
 
+- CurtaURL is a fork of [Chhoto URL](https://github.com/SinTan1729/chhoto-url).
 - It started as a fork of [`simply-shorten`](https://gitlab.com/draganczukp/simply-shorten).
 - The list of adjectives and names used for random short url generation is a modified
   version of [this list used by docker](https://github.com/moby/moby/blob/master/pkg/namesgenerator/names-generator.go).

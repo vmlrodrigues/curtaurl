@@ -10,9 +10,9 @@ and confirm that it's indeed built from source and nothing silly is going on.
 The container images come in two flavors. The default one is made from scratch, and is as light as possible.
 The tags with `-alpine` suffix are built on top of alpine, so are a little bit larger. But they have
 the basic UNIX tools for debugging, so might be worth using in case you want to play around with the image.
-The `dev` tags are always built on top of alpine. All of these images are available both on the Docker Hub (recommended)
-and GHCR, except the `dev` builds which are only available on GHCR. All of these images are available for `linux/amd64`,
-`linux/arm64`, and `linux/arm/v7` architectures on Linux. These should also work just fine with `podman`, or any other
+The `dev` tags are always built on top of alpine. Images are published to GHCR at
+`ghcr.io/vmlrodrigues/curtaurl`. These images are available for `linux/amd64`, `linux/arm64`, and
+`linux/arm/v7` architectures on Linux. These should also work just fine with `podman`, or any other
 container engine supporting OCI images.
 
 You can use the [provided compose file](./compose.yaml) as a base, modifying it as needed. Run it with
@@ -24,8 +24,8 @@ docker compose up -d
 If you're using a custom location for the `db_url`, and using WAL mode, make sure to mount a whole
 directory instead of a folder. If this is not done, there will be a low, but non-zero chance of data corruption.
 
-It should be possible to run Chhoto URL with pretty much anything that supports OCI images e.g. `docker`, `podman quadlets`
-(the repo contains a sample `chhoto-url.container` file for using with `quadlets`.) etc. Official
+It should be possible to run CurtaURL with pretty much anything that supports OCI images e.g. `docker`, `podman quadlets`
+(the repo contains a sample `curtaurl.container` file for using with `quadlets`.) etc. Official
 support is only provided for `docker` and `podman`, but it should be trivial to convert the `compose.yaml` file to other formats. If you need help,
 feel free to open a discussion.
 
@@ -36,13 +36,13 @@ feel free to open a discussion.
 0. (Only if you really want to) Build the image for the default `x86_64-unknown-linux-musl` target:
 
 ```
-docker build . -t chhoto-url
+docker build . -t ghcr.io/vmlrodrigues/curtaurl:latest
 ```
 
 For building on `arm64` or `arm/v7`, use the following:
 
 ```
-docker build . -t chhoto-url --build-arg target=<desired-target>
+docker build . -t ghcr.io/vmlrodrigues/curtaurl:latest --build-arg target=<desired-target>
 ```
 
 Make sure that the desired target is a `musl` one, since the docker image is built from `scratch`.
@@ -52,9 +52,9 @@ mentioned above., For any other architectures, open a discussion, and I'll try t
 1. Run the image
 
 ```
-docker run -p 4567:4567
+docker run -p 4567:4567 \
     -e password="password"
-    -d chhoto-url:latest
+    -d ghcr.io/vmlrodrigues/curtaurl:latest
 ```
 
 1.a Make the database file available to host (optional)
@@ -65,12 +65,12 @@ docker run -p 4567:4567 \
     -e password="password" \
     -v ./data:/data \
     -e db_url=/data/urls.sqlite \
-    -d chhoto-url:latest
+    -d ghcr.io/vmlrodrigues/curtaurl:latest
 ```
 
 _Note: All of this pretty much works exactly the same if you replace `docker` with `podman`. In fact,
 that's what I use for testing. A sample file for podman quadlets is provided at
-[`chhoto-url.container`](./chhoto-url.container)_
+[`curtaurl.container`](./curtaurl.container)_
 
 ## Configuration options
 
@@ -97,7 +97,7 @@ key will be generated and printed in the logs, but the weak one will be used for
 Example Linux command for generating a secure API key: `tr -dc A-Za-z0-9 </dev/urandom | head -c 128`.
 
 If no API key is provided, the website will still work, but it'll be a significantly worse experience if you try
-to use Chhoto URL from the CLI.
+to use CurtaURL from the CLI.
 
 ### `use_wal_mode` \#
 
@@ -158,7 +158,7 @@ _Note: If not set, one retry will be attempted, just like adjective-name slugs. 
 
 ### `listen_address`
 
-The address Chhoto URL will bind to. Defaults to `0.0.0.0`.
+The address CurtaURL will bind to. Defaults to `0.0.0.0`.
 
 Take a look at [this page](https://docs.rs/actix-web/4.11.0/actix_web/struct.HttpServer.html#method.bind)
 for supported values and potential consequences. Changing `listen_address` is not recommended if
@@ -166,7 +166,7 @@ using docker.
 
 ### `port`
 
-The port Chhoto URL will listen to. Defaults to `4567`.
+The port CurtaURL will listen to. Defaults to `4567`.
 
 ### `allow_capital_letters`
 
@@ -239,5 +239,5 @@ and `letsencryptmail` in your new `my-values.yaml`, then just run
 
 ```bash
 cd helm-chart
-helm upgrade --install chhoto-url . -n chhoto-url --create-namespace -f my-values.yaml
+helm upgrade --install curtaurl . -n curtaurl --create-namespace -f my-values.yaml
 ```

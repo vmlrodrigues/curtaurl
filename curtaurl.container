@@ -1,18 +1,18 @@
 # SPDX-FileCopyrightText: 2025 Sayantan Santra <sayantan.santra689@gmail.com>
 # SPDX-License-Identifier: MIT
 #
-# chhoto-url.container
+# curtaurl.container
 #
 # To be used with rootless quadlets. Put inside your $XDG_CONFIG_HOME/containers/systemd/
 # Take a look at README for the explanation of the configs.
 # The commented out configs are optional.
 [Unit]
-Description=Caddy
-#AssertPathIsDirectory=%h/podman/chhoto-url/data
+Description=CurtaURL
+#AssertPathIsDirectory=%h/podman/curtaurl/data
 
 [Container]
-ContainerName=chhoto-url
-Image=sintan1729/chhoto-url:latest
+ContainerName=curtaurl
+Image=ghcr.io/vmlrodrigues/curtaurl:latest
 PodmanArgs=--tty
 PublishPort=4567:4567
 DropCapability=ALL
@@ -42,7 +42,7 @@ Volume=db:/db
 
 # Health check
 # Only enable this if using the alpine images.
-# HealthCmd=CMD-SHELL wget --no-verbose --tries=1 --spider http://chhoto-url:4567/api/whoami || exit 1
+# HealthCmd=CMD-SHELL wget --no-verbose --tries=1 --spider http://curtaurl:4567/api/whoami || exit 1
 # HealthInterval=60s
 # HealthRetries=3
 # HealthStartPeriod=10s

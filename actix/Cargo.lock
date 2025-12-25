@@ -476,29 +476,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 
 [[package]]
-name = "chhoto-url"
-version = "6.5.3"
-dependencies = [
- "actix-files",
- "actix-http",
- "actix-service",
- "actix-session",
- "actix-web",
- "argon2",
- "chrono",
- "env_logger",
- "log",
- "nanoid",
- "passwords",
- "rand 0.9.2",
- "regex",
- "rusqlite",
- "serde",
- "serde_json",
- "tokio",
-]
-
-[[package]]
 name = "chrono"
 version = "0.4.42"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -596,6 +573,29 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0369ee1ad671834580515889b80f2ea915f23b8be8d0daa4bbaf2ac5c7590835"
 dependencies = [
  "cipher",
+]
+
+[[package]]
+name = "curta-url"
+version = "6.5.3"
+dependencies = [
+ "actix-files",
+ "actix-http",
+ "actix-service",
+ "actix-session",
+ "actix-web",
+ "argon2",
+ "chrono",
+ "env_logger",
+ "log",
+ "nanoid",
+ "passwords",
+ "rand 0.9.2",
+ "regex",
+ "rusqlite",
+ "serde",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]

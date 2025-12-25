@@ -23,15 +23,15 @@ body {
   margin: 1em auto auto;
 }
 
-.chhoto-button {
+.curta-button {
   background-color: light-dark(#0078e7, #0060b9);
 }
-.pure-form input.chhoto-input {
+.pure-form input.curta-input {
   width: 65%;
   border-color: light-dark(#cccccc, #3e4446);
   box-shadow: light-dark(#dddddd, #2b2f31) 0 0.1em 0.2em inset;
 }
-.pure-form input.chhoto-input:focus {
+.pure-form input.curta-input:focus {
   border-color: light-dark(#cccccc, #3e4446);
 }
 
@@ -67,7 +67,7 @@ a {
   cursor: pointer;
 }
 
-.chhoto-table {
+.curta-table {
   width: 98%;
   border-collapse: separate;
   border-spacing: 0;
@@ -75,37 +75,37 @@ a {
   box-shadow: 0 0 0 0.1em light-dark(#e0e0e0, #2a2d2f);
   border-color: light-dark(black, #867d6e);
 }
-.chhoto-table tr td div {
+.curta-table tr td div {
   max-height: 4.5em;
   line-height: 1.5em;
   word-break: break-word;
   overflow: auto;
 }
-.chhoto-table tr td[label="Long URL"] div {
+.curta-table tr td[label="Long URL"] div {
   word-break: break-all;
 }
-.chhoto-table tr td[name="numColumn"] div {
+.curta-table tr td[name="numColumn"] div {
   word-break: normal;
 }
-.chhoto-table tr td[name="hitsColumn"] div {
+.curta-table tr td[name="hitsColumn"] div {
   word-break: normal;
 }
-.chhoto-table tr:nth-child(even) {
+.curta-table tr:nth-child(even) {
   background-color: light-dark(#f2f2f2, #080a0b);
 }
-.chhoto-table caption {
+.curta-table caption {
   color: light-dark(black, #e8e6e3);
   text-align: left;
   font-size: 1.5em;
   font-style: normal;
   font-family: Montserrat;
 }
-.chhoto-table thead {
+.curta-table thead {
   color: light-dark(black, #e8e6e3);
   background-color: light-dark(#e0e0e0, #2a2d2f);
 }
-.chhoto-table th,
-.chhoto-table td {
+.curta-table th,
+.curta-table td {
   border-left: none;
   max-width: 36em;
 }
@@ -269,32 +269,32 @@ div[name="links-div"] {
   .container {
     max-width: 98vw;
   }
-  .pure-form input.chhoto-input {
+  .pure-form input.curta-input {
     width: 98%;
   }
 
-  .chhoto-table {
+  .curta-table {
     border-collapse: collapse;
   }
-  .chhoto-table tr:not(:last-child) {
+  .curta-table tr:not(:last-child) {
     border-bottom: 0.15em dotted light-dark(black, #867d6e);
   }
 
-  .chhoto-table thead {
+  .curta-table thead {
     display: none;
   }
 
-  .chhoto-table td {
+  .curta-table td {
     display: flex;
     justify-content: left;
     width: 97vw;
     padding: 0.1em;
   }
 
-  .chhoto-table tr td[name="shortColumn"] {
+  .curta-table tr td[name="shortColumn"] {
     padding-top: 0.5em;
   }
-  .chhoto-table tr td[name="actions"] {
+  .curta-table tr td[name="actions"] {
     padding-bottom: 0.5em;
   }
 
@@ -302,23 +302,23 @@ div[name="links-div"] {
     display: none;
   }
 
-  .chhoto-table td::before {
+  .curta-table td::before {
     content: attr(label);
     font-weight: bold;
     min-width: 6em;
     text-align: left;
     align-content: center;
   }
-  .chhoto-table td div {
+  .curta-table td div {
     align-content: center;
   }
 
-  .chhoto-table th[name="numColumn"],
-  .chhoto-table td[name="numColumn"] {
+  .curta-table th[name="numColumn"],
+  .curta-table td[name="numColumn"] {
     display: none;
   }
 
-  .chhoto-table caption {
+  .curta-table caption {
     padding-top: 0;
   }
 

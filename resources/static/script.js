@@ -82,7 +82,7 @@ const showVersion = () => {
   if (VERSION) {
     link.innerText = "v" + VERSION;
     link.href =
-      "https://github.com/SinTan1729/chhoto-url/releases/tag/" + VERSION;
+      "https://github.com/vmlrodrigues/curtaurl/releases/tag/" + VERSION;
     link.hidden = false;
   } else {
     link.hidden = true;
@@ -474,7 +474,7 @@ const qrCodeButton = (shortlink) => {
       document.getElementById("qr-code").appendChild(newCanvas);
       const qrDown = document.getElementById("qr-download");
       qrDown.href = newCanvas.toDataURL();
-      qrDown.download = `chhoto-qr-${shortlink}.png`;
+      qrDown.download = `curta-qr-${shortlink}.png`;
       document.getElementById("container").style.filter = "blur(2px)";
       document.getElementById("qr-code-dialog").showModal();
     };

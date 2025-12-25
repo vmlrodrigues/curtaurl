@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: chhoto-url
+  name: curtaurl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chhoto-url
+      app: curtaurl
   template:
     metadata:
       labels:
-        app: chhoto-url
+        app: curtaurl
     spec:
       containers:
-        - name: chhoto-url
+        - name: curtaurl
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 4567

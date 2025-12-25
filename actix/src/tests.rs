@@ -47,7 +47,7 @@ fn default_config(test: &str) -> config::Config {
     let conf = config::Config {
     listen_address: String::from("0.0.0.0"),
     port: 4567,
-    db_location: format!("/tmp/chhoto-url-test-{test}.sqlite"),
+    db_location: format!("/tmp/curtaurl-test-{test}.sqlite"),
     cache_control_header: None,
     disable_frontend: true,
     site_url: Some(String::from("https://mydomain.com")),
@@ -72,12 +72,12 @@ async fn create_app(
     conf: &config::Config,
     test: &str,
 ) -> impl Service<Request, Response = ServiceResponse, Error = Error> {
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
     let app = test::init_service(
         App::new()
             .app_data(web::Data::new(AppState {
                 db: database::open_db(
-                    format!("/tmp/chhoto-url-test-{test}.sqlite").as_str(),
+                    format!("/tmp/curtaurl-test-{test}.sqlite").as_str(),
                     conf.use_wal_mode,
                     conf.ensure_acid,
                 ),
@@ -200,7 +200,7 @@ async fn basic_site_config() {
     let body = to_bytes(resp.into_body()).await.unwrap();
     assert_eq!(
         body.as_str(),
-        format!("Chhoto URL v{}", env!("CARGO_PKG_VERSION"))
+        format!("CurtaURL v{}", env!("CARGO_PKG_VERSION"))
     );
 
     let req = test::TestRequest::get()
@@ -214,7 +214,7 @@ async fn basic_site_config() {
     assert_eq!(conf.version, env!("CARGO_PKG_VERSION"));
     assert_eq!(conf.slug_length, 8);
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -244,7 +244,7 @@ async fn adding_link_with_shortlink() {
     assert!(status.is_client_error());
     assert_eq!(reply.reason, "Short URL is already in use!");
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -275,7 +275,7 @@ async fn adding_link_with_shortlink_capital_letters() {
     assert!(status.is_client_error());
     assert_eq!(reply.reason, "Short URL is already in use!");
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -307,7 +307,7 @@ async fn reusing_existing_longlink_returns_existing_shortlink() {
     assert!(status.is_success());
     assert_eq!(reply.shorturl, "https://mydomain.com/alpha");
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -326,7 +326,7 @@ async fn link_resolution() {
         "https://example-test1.com"
     );
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -346,7 +346,7 @@ async fn link_deletion() {
     let resp = test::call_service(&app, req).await;
     assert!(resp.status().is_success());
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -403,7 +403,7 @@ async fn data_fetching_all() {
     assert_eq!(reply_chunks.len(), 1);
     assert_eq!(reply_chunks[0].shortlink, "test1");
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -417,7 +417,7 @@ async fn adding_link_with_generated_shortlink_with_pair_slug() {
     let re = Regex::new(r"^https://mydomain.com/[a-z]+-[a-z]+$").unwrap();
     assert!(re.is_match(reply.shorturl.as_str()));
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -433,7 +433,7 @@ async fn adding_link_with_generated_shortlink_with_uid_slug() {
     let re = Regex::new(r"^https://mydomain.com/[a-z0-9]{12}$").unwrap();
     assert!(re.is_match(reply.shorturl.as_str()));
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -450,7 +450,7 @@ async fn adding_link_with_generated_shortlink_with_uid_slug_capital_letters() {
     let re = Regex::new(r"^https://mydomain.com/[A-Za-z0-9]{12}$").unwrap();
     assert!(re.is_match(reply.shorturl.as_str()));
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -500,7 +500,7 @@ async fn adding_link_with_retry_on_collision() {
         assert!(status.is_client_error());
     }
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -523,7 +523,7 @@ async fn expand_link() {
     let reply: CreatedURL = serde_json::from_str(body.as_str()).unwrap();
     assert_eq!(reply.longurl, "https://example-test4.com");
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -548,7 +548,7 @@ async fn link_expiry() {
     let (status, _) = add_link(&app, &api_key, "test1", 10).await;
     assert!(status.is_success());
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }
 
 #[test]
@@ -592,5 +592,5 @@ async fn link_editing() {
     let status = edit_link(&app, &api_key, "test2", true).await;
     assert!(status.is_client_error());
 
-    let _ = fs::remove_file(format!("/tmp/chhoto-url-test-{test}.sqlite"));
+    let _ = fs::remove_file(format!("/tmp/curtaurl-test-{test}.sqlite"));
 }

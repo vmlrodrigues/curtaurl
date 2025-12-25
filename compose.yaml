@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: MIT
 
 services:
-  chhoto-url:
-    image: sintan1729/chhoto-url:latest
+  curtaurl:
+    image: ghcr.io/vmlrodrigues/curtaurl:latest
     # You may want to check out the alpine images for extra features. The images can also be
     # pulled from ghcr.io
     restart: unless-stopped
-    container_name: chhoto-url
+    container_name: curtaurl
     tty: true
     # You may enable the next two options if you want. Make sure that you run the container as the proper
     # user. In most cases, user: 1000:1000 should work. You might also need to mount a directory with your
@@ -41,20 +41,20 @@ services:
       # This must not be surrounded by quotes. For example:
       # site_url="https://www.example.com"   incorrect
       # site_url=https://www.example.com     correct
-      # This is important to ensure Chhoto URL outputs the shortened link with the correct URL.
+      # This is important to ensure CurtaURL outputs the shortened link with the correct URL.
       # - site_url=https://www.example.com
 
       # If you want to provided hashed password and API Key, uncomment the next line. Read the README
       # for instructions for the hashing. Make sure to escape $ by $$.
       # - hash_algorithm=Argon2
 
-      # Change this if you are running Chhoto URL on a port which is not 4567.
-      # This is important to ensure Chhoto URL outputs the shortened link with the correct port.
+      # Change this if you are running CurtaURL on a port which is not 4567.
+      # This is important to ensure CurtaURL outputs the shortened link with the correct port.
       # - port=4567
 
       - password=TopSecretPass
 
-      # This needs to be set in order to use programs that use the JSON interface of Chhoto URL.
+      # This needs to be set in order to use programs that use the JSON interface of CurtaURL.
       # You will get a warning if this is insecure, and a generated value will be output
       # You may use that value if you can't think of a secure key
       # - api_key=SECURE_API_KEY
@@ -100,7 +100,7 @@ services:
       - db:/db
     # Only enable this if using the alpine images.
     # healthcheck:
-    #   test: wget --no-verbose --tries=1 --spider http://chhoto-url:4567/api/whoami || exit 1
+    #   test: wget --no-verbose --tries=1 --spider http://curtaurl:4567/api/whoami || exit 1
     #   interval: 60s
     #   start_period: 10s
     #   retries: 3

@@ -2,15 +2,15 @@
 # SPDX-License-Identifier: MIT
 
 [package]
-name = "chhoto-url"
+name = "curta-url"
 version = "6.5.3"
 edition = "2021"
 authors = ["Sayantan Santra <sayantan[dot]santra689[at]gmail[dot]com"]
 license = "mit"
 description = "A simple selfhosted URL shortener with no unnecessary features."
-homepage = "https://github.com/SinTan1729/chhoto-url"
-documentation = "https://github.com/SinTan1729/chhoto-url"
-repository = "https://github.com/SinTan1729/chhoto-url"
+homepage = "https://github.com/vmlrodrigues/curtaurl"
+documentation = "https://github.com/vmlrodrigues/curtaurl"
+repository = "https://github.com/vmlrodrigues/curtaurl"
 readme = "README.md"
 keywords = [
     "docker",

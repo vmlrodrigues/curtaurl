@@ -272,7 +272,7 @@ pub async fn siteurl(data: web::Data<AppState>) -> HttpResponse {
 // Use /api/getconfig instead
 #[get("/api/version")]
 pub async fn version() -> HttpResponse {
-    HttpResponse::Ok().body(format!("Chhoto URL v{VERSION}"))
+    HttpResponse::Ok().body(format!("CurtaURL v{VERSION}"))
 }
 
 // Get the user's current role
@@ -387,7 +387,7 @@ pub async fn login(req: String, session: Session, data: web::Data<AppState>) -> 
         }
         // Return Ok if no password was set on the server side
         session
-            .insert("chhoto-url-auth", auth::gen_token())
+            .insert("curta-url-auth", auth::gen_token())
             .expect("Error inserting auth token.");
 
         let response = JSONResponse {
@@ -407,7 +407,7 @@ pub async fn login(req: String, session: Session, data: web::Data<AppState>) -> 
         }
         // Return Ok if no password was set on the server side
         session
-            .insert("chhoto-url-auth", auth::gen_token())
+            .insert("curta-url-auth", auth::gen_token())
             .expect("Error inserting auth token.");
 
         info!("Successful login.");
@@ -419,7 +419,7 @@ pub async fn login(req: String, session: Session, data: web::Data<AppState>) -> 
 // There's no reason to be calling this route with an API key
 #[delete("/api/logout")]
 pub async fn logout(session: Session) -> HttpResponse {
-    if session.remove("chhoto-url-auth").is_some() {
+    if session.remove("curta-url-auth").is_some() {
         info!("Successful logout.");
         HttpResponse::Ok().body("Logged out!")
     } else {
