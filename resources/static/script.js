@@ -458,9 +458,8 @@ const qrCodeButton = (shortlink) => {
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, 280, 280);
     ctx.drawImage(oldCanvas, 12, 12);
-
     const img = new Image();
-    img.src = "assets/favicon.svg";
+    img.src = "assets/favicon-curta.svg";
     img.onload = () => {
       ctx.fillStyle = "white";
       ctx.beginPath();
@@ -471,6 +470,15 @@ const qrCodeButton = (shortlink) => {
       const imgHeight = 50;
       ctx.drawImage(img, 115, 115, 50, 50);
 
+      document.getElementById("qr-code").appendChild(newCanvas);
+      const qrDown = document.getElementById("qr-download");
+      qrDown.href = newCanvas.toDataURL();
+      qrDown.download = `curta-qr-${shortlink}.png`;
+      document.getElementById("container").style.filter = "blur(2px)";
+      document.getElementById("qr-code-dialog").showModal();
+    };
+    img.onerror = () => {
+      // Still show the QR if the logo asset fails to load.
       document.getElementById("qr-code").appendChild(newCanvas);
       const qrDown = document.getElementById("qr-download");
       qrDown.href = newCanvas.toDataURL();
