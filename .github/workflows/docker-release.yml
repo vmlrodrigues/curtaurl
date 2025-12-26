@@ -78,6 +78,9 @@ jobs:
           sudo apt update
           sudo apt install minify
           minify -rs resources-original/ -o resources/
+          # Ensure static assets (icons, images) are preserved after minification.
+          mkdir -p resources/assets
+          cp -R resources-original/assets/. resources/assets/
       - name: Display current directory structure
         run: ls -R
       - name: Log in to the Container registry
