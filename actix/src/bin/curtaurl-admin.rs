@@ -5,6 +5,8 @@ use serde::Deserialize;
 use serde_json::json;
 use std::env;
 
+use chrono::{TimeZone, Utc};
+
 
 #[derive(Deserialize)]
 struct ApiError {
@@ -110,7 +112,8 @@ fn main() {
                     if body.success {
                         println!("Created key {id} ({name})", id = body.id, name = body.name);
                         println!("Key: {key}", key = body.key);
-                        println!("Created at: {created}", created = body.created_at);
+                        let created = format_ts(body.created_at);
+                        println!("Created at: {created}");
                     } else if body.error {
                         eprintln!("Server error while creating key.");
                         std::process::exit(1);
@@ -136,16 +139,42 @@ fn main() {
                         if body.keys.is_empty() {
                             println!("No managed API keys found.");
                         } else {
+                            let headers = [
+                                "ID",
+                                "Name",
+                                "Created",
+                                "Last Used",
+                                "Revoked",
+                                "Notes",
+                            ];
+                            let mut rows: Vec<Vec<String>> = Vec::new();
                             for key in body.keys {
-                                println!(
-                                    "{id}\t{name}\tcreated={created}\tlast_used={last}\trevoked={revoked}\tnotes={notes}",
-                                    id = key.id,
-                                    name = key.name,
-                                    created = key.created_at,
-                                    last = key.last_used_at.map_or("-".to_string(), |v| v.to_string()),
-                                    revoked = key.revoked_at.map_or("-".to_string(), |v| v.to_string()),
-                                    notes = key.notes.unwrap_or_else(|| "-".to_string())
-                                );
+                                let notes = key.notes.unwrap_or_else(|| "-".to_string());
+                                rows.push(vec![
+                                    key.id.to_string(),
+                                    key.name,
+                                    format_ts(key.created_at),
+                                    format_opt_ts(key.last_used_at),
+                                    format_opt_ts(key.revoked_at),
+                                    notes,
+                                ]);
+                            }
+
+                            let mut widths: Vec<usize> = headers.iter().map(|h| h.len()).collect();
+                            for row in &rows {
+                                for (idx, cell) in row.iter().enumerate() {
+                                    if cell.len() > widths[idx] {
+                                        widths[idx] = cell.len();
+                                    }
+                                }
+                            }
+
+                            let header_row =
+                                headers.iter().map(|h| h.to_string()).collect::<Vec<_>>();
+                            println!("{}", format_row(&header_row, &widths));
+                            println!("{}", format_sep(&widths));
+                            for row in rows {
+                                println!("{}", format_row(&row, &widths));
                             }
                         }
                     } else if body.error {
@@ -216,6 +245,42 @@ fn main() {
             std::process::exit(1);
         }
     }
+}
+
+
+
+
+fn format_row(cells: &[String], widths: &[usize]) -> String {
+    let mut out = String::from("|");
+    for (idx, cell) in cells.iter().enumerate() {
+        out.push(' ');
+        out.push_str(&format!("{:width$}", cell, width = widths[idx]));
+        out.push(' ');
+        out.push('|');
+    }
+    out
+}
+
+fn format_sep(widths: &[usize]) -> String {
+    let mut out = String::from("|");
+    for width in widths {
+        out.push(' ');
+        out.push_str(&"-".repeat(*width));
+        out.push(' ');
+        out.push('|');
+    }
+    out
+}
+
+fn format_ts(ts: i64) -> String {
+    Utc.timestamp_opt(ts, 0)
+        .single()
+        .map(|dt| dt.to_rfc3339())
+        .unwrap_or_else(|| ts.to_string())
+}
+
+fn format_opt_ts(ts: Option<i64>) -> String {
+    ts.map(format_ts).unwrap_or_else(|| "-".to_string())
 }
 
 fn report_api_error(err: ureq::Error) {
