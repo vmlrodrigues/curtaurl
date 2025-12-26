@@ -100,6 +100,17 @@ Link: [https://shrtn.fyi](https://shrtn.fyi)
 
 [See here.](./INSTALLATION.md)
 
+# Local test run
+
+Quick way to validate changes locally using the dev image:
+
+```bash
+docker pull ghcr.io/vmlrodrigues/curta-url:dev
+docker run -p 4567:4567 -e password=TestPass ghcr.io/vmlrodrigues/curta-url:dev
+```
+
+Open `http://localhost:4567`, create a short link, and verify features such as QR code generation.
+
 # Instructions for CLI usage
 
 [See here.](./CLI.md)
